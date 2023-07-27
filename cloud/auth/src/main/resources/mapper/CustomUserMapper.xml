@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="vip.penint.cloud.auth.mapper.CustomUserMapper">
+
+
+    <select id="findByName" parameterType="string" resultType="vip.penint.cloud.auth.entity.CustomUser">
+        SELECT id,
+        username,
+        password
+        FROM sys_custom_user
+        WHERE username = #{username,jdbcType=VARCHAR}
+    </select>
+
+    <select id="findLastTenDaysVisitCount" resultType="java.util.Map">
+        select date_format(l.create_time, '%m-%d') days,
+               count(1) count
+        from
+            (
+            select
+            *
+            from
+            sys_custom_user
+            where
+            date_sub(curdate(), interval 10 day) &lt;= date (create_time)
+            ) as l
+        group by
+            days
+    </select>
+</mapper>

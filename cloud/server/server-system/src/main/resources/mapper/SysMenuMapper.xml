@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="vip.penint.cloud.server.system.mapper.SysMenuMapper">
+    <resultMap id="BaseResultMap" type="vip.penint.cloud.common.core.entity.system.SysMenu">
+        <!--@mbg.generated-->
+        <!--@Table sys_menu-->
+        <id column="menu_id" jdbcType="INTEGER" property="menuId"/>
+        <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
+        <result column="menu_name" jdbcType="VARCHAR" property="menuName"/>
+        <result column="path" jdbcType="VARCHAR" property="path"/>
+        <result column="component" jdbcType="VARCHAR" property="component"/>
+        <result column="perms" jdbcType="VARCHAR" property="perms"/>
+        <result column="icon" jdbcType="VARCHAR" property="icon"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="order_num" jdbcType="INTEGER" property="orderNum"/>
+        <result column="is_visible" jdbcType="INTEGER" property="isVisible"/>
+        <result column="is_link" jdbcType="INTEGER" property="isLink"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        menu_id, parent_id, menu_name, `path`, component, perms, icon, `type`, order_num, is_visible, is_link,
+        create_time, modify_time
+    </sql>
+
+    <sql id="Base_Column_List_M">
+        <!--@mbg.generated-->
+        m.menu_id, m.parent_id, m.menu_name, m.`path`, m.component, m.perms, m.icon, m.`type`, m.order_num,
+        m.is_visible,
+        is_link, m.create_time, m.modify_time
+    </sql>
+
+
+    <select id="findUserPermissions" resultMap="BaseResultMap">
+        select distinct m.perms
+        from sys_role r
+        left join sys_user_role ur on (r.role_id = ur.role_id)
+        left join sys_user u on (u.user_id = ur.user_id)
+        left join sys_role_menu rm on (rm.role_id = r.role_id)
+        left join sys_menu m on (m.menu_id = rm.menu_id)
+        where u.user_id = #{userId,jdbcType=INTEGER}
+        and m.perms is not null
+        and m.perms &lt;&gt; ''
+        and m.is_visible = true
+    </select>
+
+    <select id="findUserMenus" resultMap="BaseResultMap">
+        select m.*
+        from sys_menu m
+        where m.type &lt;&gt; 1
+        and m.MENU_ID in
+        (select distinct rm.menu_id
+        from sys_role_menu rm
+        left join sys_role r on (rm.role_id = r.role_id)
+        left join sys_user_role ur on (ur.role_id = r.role_id)
+        left join sys_user u on (u.user_id = ur.user_id)
+        where u.user_id = #{userId,jdbcType=INTEGER})
+        and m.is_visible = true
+        order by m.order_num;
+    </select>
+    <select id="findUserPermissionsByUserId" resultType="java.lang.String">
+        select distinct m.perms
+        from sys_role r
+        left join sys_user_role ur on (r.role_id = ur.role_id)
+        left join sys_user u on (u.user_id = ur.user_id)
+        left join sys_role_menu rm on (rm.role_id = r.role_id)
+        left join sys_menu m on (m.menu_id = rm.menu_id)
+        where u.user_id = #{userId,jdbcType=INTEGER}
+        and m.perms is not null
+        and m.perms &lt;&gt; ''
+        and m.is_visible = true
+    </select>
+    <select id="selectMenuTreeByUserId" resultMap="BaseResultMap">
+        select distinct m.menu_id,
+        m.parent_id,
+        m.menu_name,
+        m.path,
+        m.component,
+        m.is_visible,
+        ifnull(m.perms, '') as perms,
+        m.is_link,
+        m.type,
+        m.icon,
+        m.order_num,
+        m.create_time
+        from sys_menu m
+        left join sys_role_menu rm on m.menu_id = rm.menu_id
+        left join sys_user_role ur on rm.role_id = ur.role_id
+        left join sys_role ro on ur.role_id = ro.role_id
+        left join sys_user u on ur.user_id = u.user_id
+        where u.user_id = #{userId,jdbcType=INTEGER}
+        and m.type = 0
+        and m.is_visible = true
+        order by m.parent_id, m.order_num
+    </select>
+    <select id="selectMenuListByUserId" resultMap="BaseResultMap">
+        select distinct
+        <include refid="Base_Column_List_M"></include>
+        from sys_menu m
+        left join sys_role_menu rm on m.menu_id = rm.menu_id
+        left join sys_user_role ur on rm.role_id = ur.role_id
+        left join sys_role ro on ur.role_id = ro.role_id
+        where ur.user_id = #{userId,jdbcType=INTEGER}
+        <if test="menu.menuName != null and menu.menuName != ''">
+            AND menu_name like concat('%', #{menu.menuName,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="menu.isVisible != null and menu.isVisible != ''">
+            AND is_visible = #{menu.isVisible,jdbcType=BOOLEAN}
+        </if>
+        order by m.parent_id, m.order_num
+    </select>
+    <select id="selectMenuListByRoleId" resultType="java.lang.Integer">
+        select m.menu_id, m.parent_id
+        from sys_menu m
+        left join sys_role_menu rm on m.menu_id = rm.menu_id
+        where rm.role_id = #{roleId,jdbcType=INTEGER}
+        and m.menu_id not in (select m.parent_id
+        from sys_menu m
+        inner join sys_role_menu rm on m.menu_id = rm.menu_id and rm.role_id = #{roleId,jdbcType=INTEGER}
+        order by m.parent_id, m.order_num);
+    </select>
+    <select id="selectMenuList" resultMap="BaseResultMap">
+        select distinct
+        <include refid="Base_Column_List_M"></include>
+        from sys_menu m
+        left join sys_role_menu rm on m.menu_id = rm.menu_id
+        left join sys_user_role ur on rm.role_id = ur.role_id
+        left join sys_role ro on ur.role_id = ro.role_id
+        <where>
+            <if test="menu.menuName != null and menu.menuName != ''">
+                AND menu_name like concat('%', #{menu.menuName,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="menu.isVisible != null and menu.isVisible != ''">
+                AND is_visible = #{menu.isVisible,jdbcType=BOOLEAN}
+            </if>
+        </where>
+        order by m.parent_id, m.order_num
+    </select>
+</mapper>

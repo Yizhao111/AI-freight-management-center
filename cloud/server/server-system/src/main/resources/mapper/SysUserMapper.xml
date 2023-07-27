@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="vip.penint.cloud.server.system.mapper.SysUserMapper">
+    <resultMap id="BaseResultMap" type="vip.penint.cloud.common.core.entity.system.SysUser">
+        <!--@mbg.generated-->
+        <!--@Table sys_user-->
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp"/>
+        <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime"/>
+        <result column="ssex" jdbcType="INTEGER" property="ssex"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+    </resultMap>
+
+    <resultMap id="UserRoleMap" type="vip.penint.cloud.common.core.entity.system.SysUser">
+        <!--@mbg.generated-->
+        <!--@Table sys_user-->
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp"/>
+        <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime"/>
+        <result column="ssex" jdbcType="INTEGER" property="ssex"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="roleId" jdbcType="INTEGER" property="roleId"/>
+    </resultMap>
+
+    <resultMap id="UserRole" type="vip.penint.cloud.common.core.entity.system.SysUser">
+        <!--@mbg.generated-->
+        <!--@Table sys_user-->
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp"/>
+        <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime"/>
+        <result column="ssex" jdbcType="INTEGER" property="ssex"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <!--        <collection property="roleList" ofType="SysRole">-->
+        <!--            <result column="roleId" property="roleId" />-->
+        <!--        </collection>-->
+    </resultMap>
+
+
+    <resultMap type="vip.penint.cloud.common.core.entity.system.SysUser" id="SysUserResult">
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp"/>
+        <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime"/>
+        <result column="ssex" jdbcType="INTEGER" property="ssex"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="roleId" jdbcType="INTEGER" property="roleId"/>
+        <result column="roleName" jdbcType="VARCHAR" property="roleName"/>
+        <collection property="roles" javaType="java.util.List" resultMap="RoleResult"/>
+    </resultMap>
+
+    <resultMap id="RoleResult" type="vip.penint.cloud.common.core.entity.system.SysRole">
+        <id property="roleId" column="role_id"/>
+        <result property="roleName" column="role_name"/>
+    </resultMap>
+
+    <resultMap id="FindUserNameMAp" type="vip.penint.cloud.common.core.entity.system.SysUser">
+        <!--@mbg.generated-->
+        <!--@Table sys_user-->
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="ssex" jdbcType="INTEGER" property="ssex"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="roleId" jdbcType="VARCHAR" property="roleId"/>
+        <result column="roleName" jdbcType="VARCHAR" property="roleName"/>
+        <collection property="roles" ofType="vip.penint.cloud.common.core.entity.system.SysRole"
+                    column="roleId" javaType="ArrayList" select="getRoleByRoleId">
+            <result column="roleId" property="roleId"/>
+            <result column="roleName" property="roleName"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="roleMap" type="vip.penint.cloud.common.core.entity.system.SysRole">
+        <!--@mbg.generated-->
+        <!--@Table sys_role-->
+        <id column="role_id" jdbcType="INTEGER" property="roleId"/>
+        <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+    </resultMap>
+
+    <sql id="Role_Column_List">
+        <!--@mbg.generated-->
+        r.role_id, r.role_name
+    </sql>
+
+
+
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        user_id, username, nick_name, email, mobile, last_login_ip, last_login_time, ssex, description,
+        avatar, create_time, modify_time, `status`
+    </sql>
+    <sql id="Base_Column_List_U">
+        <!--@mbg.generated-->
+        u.user_id, u.username, u.nick_name, u.email, u.mobile, u.last_login_ip, u.last_login_time, u.ssex,
+        u.description,
+        u.avatar, u.create_time, u.modify_time, u.`status`
+    </sql>
+
+    <sql id="selectUserVo">
+        select
+        <include refid="Base_Column_List_U"/>,
+        r.role_id,
+        r.role_name
+        from sys_user u
+        left join sys_user_role ur on u.user_id = ur.user_id
+        left join sys_role r on r.role_id = ur.role_id
+    </sql>
+
+    <select id="queryFuzz" resultMap="UserRoleMap">
+        select
+        <include refid="Base_Column_List_U"/>,
+            GROUP_CONCAT(distinct r.role_id)   as roleId,
+            GROUP_CONCAT(distinct r.role_name) as roleName
+            from sys_user u
+                         LEFT JOIN sys_user_role ur ON (u.user_id = ur.user_id)
+                         LEFT JOIN sys_role r ON r.role_id = ur.role_id
+        <where>
+            u.deleted = false
+            <if test="user.username != null and user.username != ''">
+                and u.username like concat('%', #{user.username,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="user.nickName != null and user.nickName != ''">
+                and u.nick_name like concat('%', #{user.nickName,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="user.mobile != null and user.mobile != ''">
+                and u.mobile like concat('%', #{user.mobile,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="user.beginTime != null and user.beginTime != '' and user.endTime != null and user.endTime != ''">
+                and u.create_time between #{user.beginTime,jdbcType=VARCHAR} and
+                        #{user.endTime,jdbcType=VARCHAR}
+            </if>
+        </where>
+        group by u.user_id
+        order by u.create_time desc
+    </select>
+    <select id="getInfoById" resultMap="UserRoleMap">
+        select
+        <include refid="Base_Column_List_U"/>,
+            GROUP_CONCAT(r.role_id)    as roleId,
+            GROUP_CONCAT(r.role_name)  as roleName
+            from sys_user u
+                         LEFT JOIN sys_user_role ur ON (u.user_id = ur.user_id)
+                         LEFT JOIN sys_role r ON r.role_id = ur.role_id
+        <where>
+            u.deleted = false
+            <if test="userId != null">
+                and u.user_id = #{userId,jdbcType=INTEGER}
+            </if>
+        </where>
+        group by u.user_id
+        order by u.create_time desc
+    </select>
+
+    <select id="getRoleById" resultMap="SysUserResult">
+        <include refid="selectUserVo"/>
+        where u.user_id = #{userId}
+          AND u.deleted = false
+    </select>
+
+    <select id="queryList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List_U"/>,
+            GROUP_CONCAT(r.role_id)   as roleId,
+            GROUP_CONCAT(r.role_name) as roleName
+            from sys_user u
+                         LEFT JOIN sys_user_role ur ON (u.user_id = ur.user_id)
+                         LEFT JOIN sys_role r ON r.role_id = ur.role_id
+        <where>
+            u.deleted = false
+            <if test="user.username != null and user.username != ''">
+                and u.username like concat('%', #{user.username,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="user.nickName != null and user.nickName != ''">
+                and u.nick_name like concat('%', #{user.nickName,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="user.mobile != null and user.mobile != ''">
+                and u.mobile like concat('%', #{user.mobile,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="user.beginTime != null and user.beginTime != '' and user.endTime != null and user.endTime != ''">
+                and u.create_time between #{user.beginTime,jdbcType=VARCHAR} and
+                        #{user.endTime,jdbcType=VARCHAR}
+            </if>
+        </where>
+        group by u.user_id
+        order by u.create_time desc
+    </select>
+
+    <select id="selUser" resultMap="BaseResultMap">
+        SELECT user_id, nick_name, mobile
+        FROM `sys_user`
+        WHERE FIND_IN_SET(user_id, #{userIds})
+          AND deleted = false
+    </select>
+
+
+    <select id="pageUserList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List_U"/>
+            from sys_user u
+        <where>
+            u.deleted = false
+            <if test="user.username != null and user.username != ''">
+                and u.username like concat('%', #{user.username,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="user.nickName != null and user.nickName != ''">
+                and u.nick_name like concat('%', #{user.nickName,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="user.mobile != null and user.mobile != ''">
+                and u.mobile like concat('%', #{user.mobile,jdbcType=VARCHAR}, '%')
+            </if>
+        </where>
+        group by u.user_id
+        order by u.create_time desc
+    </select>
+
+    <select id="findByName" parameterType="string" resultMap="FindUserNameMAp">
+        SELECT u.user_id,
+        u.nick_name,
+        u.username,
+        u.email,
+        u.mobile,
+        u.password,
+        u.status,
+        u.create_time             createTime,
+        u.ssex,
+        u.last_login_time         lastLoginTime,
+        u.modify_time             modifyTime,
+        u.description,
+        u.avatar,
+        GROUP_CONCAT(r.role_id)   roleId,
+        GROUP_CONCAT(r.ROLE_NAME) roleName
+        FROM sys_user u
+        LEFT JOIN sys_user_role ur ON (u.user_id = ur.user_id)
+        LEFT JOIN sys_role r ON r.role_id = ur.role_id
+        WHERE u.username = #{username,jdbcType=VARCHAR}
+        group by u.username, u.user_id, u.email, u.mobile, u.password, u.status, u.create_time, u.ssex
+        , u.last_login_time, u.modify_time, u.description, u.avatar
+    </select>
+
+
+    <select id="getRoleByRoleId" parameterType="java.lang.Integer" resultMap="roleMap">
+        SELECT
+        <include refid="Role_Column_List"/>
+        FROM sys_role r
+        WHERE r.role_id = #{role_ID}
+    </select>
+
+    <select id="selectUserByRole" resultMap="BaseResultMap">
+        SELECT *
+        FROM sys_user
+                 LEFT JOIN sys_user_role ON sys_user.user_id = sys_user_role.user_id
+        <where>
+            <if test="roleId != null">
+                role_id = #{roleId,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+</mapper>

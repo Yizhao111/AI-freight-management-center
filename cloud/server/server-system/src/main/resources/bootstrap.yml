@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: Cloud-Server-System
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848
+        group: DEFAULT_GROUP
+        prefix: server-system
+        file-extension: yaml
+        refreshable-dataids:
+        namespace: 69b2ffc0-c439-48c6-8f16-96be4b3d85c5
+      discovery:
+        server-addr: localhost:8848
+        namespace: 69b2ffc0-c439-48c6-8f16-96be4b3d85c5
+        ip: localhost
+  main:
+    allow-bean-definition-overriding: true
+
+logging:
+  level:
+    org:
+      springframework:
+        boot:
+          actuate:
+            endpoint:
+              EndpointId: error
+    com:
+      alibaba:
+        cloud:
+          nacos:
+            client:
+              NacosPropertySourceBuilder: error

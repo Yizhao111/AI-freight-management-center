@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="vip.penint.cloud.server.busi.mapper.IOrdersMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="vip.penint.cloud.server.busi.entity.Orders">
+        <id column="order_id" property="orderId"/>
+        <result column="order_sn" property="orderSn"/>
+        <result column="total_price" property="totalPrice"/>
+        <result column="product_description" property="productDescription"/>
+        <result column="notes" property="notes"/>
+        <result column="delivery_date" property="deliveryDate"/>
+        <result column="order_type" property="orderType"/>
+        <result column="delivery_address" property="deliveryAddress"/>
+        <result column="recipient_name" property="recipientName"/>
+        <result column="phone_number" property="phoneNumber"/>
+        <result column="postal_code" property="postalCode"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        order_id,
+        order_sn,
+        total_price,
+        product_description,
+        notes,
+        delivery_date,
+        order_type,
+        delivery_address,
+        recipient_name,
+        phone_number,
+        postal_code,
+        status,
+        create_time
+    </sql>
+
+    <select id="findLastTenDaysVisitCount" resultType="java.util.Map">
+        select date_format(l.create_time, '%m-%d') days,
+               count(1) count
+        from
+            (
+            select
+            *
+            from
+            busi_orders
+            where
+            date_sub(curdate(), interval 10 day) &lt;= date (create_time)
+            ) as l
+        group by
+            days
+    </select>
+
+    <select id="orderPrice" resultType="java.math.BigDecimal">
+        SELECT SUM(total_price) FROM busi_orders where status != 4
+    </select>
+</mapper>

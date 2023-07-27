@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>common</artifactId>
+        <groupId>vip.penint</groupId>
+        <version>3.0-RELEASE</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <name>Common-Redis-Starter</name>
+    <description>Common-Redis-Starter Redis模块</description>
+    <packaging>jar</packaging>
+    <artifactId>common-redis-starter</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
+    <!-- 配置远程发布到私服，mvn deploy -->
+    <distributionManagement>
+        <repository>
+            <id>maven-releases</id>
+            <name>Nexus Release Repository</name>
+            <url>http://192.168.1.57:9000/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>maven-snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://192.168.1.57:9000/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <!-- https://gitee.com/roseboy/classfinal -->
+                <groupId>net.roseboy</groupId>
+                <artifactId>classfinal-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <configuration>
+                    <!--  加密打包之后pom.xml会被删除，不用担心在jar包里找到此密码，当为 # 时不加密 -->
+                    <password>#</password><!--加密打包之后pom.xml会被删除，不用担心在jar包里找到此密码-->
+                    <!-- 加密的包名(可为空,多个用","分割) -->
+                    <packages>vip.penint.cloud.common.core</packages>
+                    <!--  配置说明文件，如果没有特殊的打包要求可以注销 cfgfiles 标签  -->
+                    <!--                    <cfgfiles>application.yml</cfgfiles>-->
+                    <!--  排除的类名(可为空,多个用","分割) -->
+                    <!--                    <excludes>org.spring</excludes>-->
+                    <!--                    <libjars>a.jar,b.jar</libjars>-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>classFinal</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

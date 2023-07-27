@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>vip.penint</groupId>
+        <artifactId>server</artifactId>
+        <version>3.0-RELEASE</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>server-system</artifactId>
+    <name>Server-System</name>
+    <description>Server-System微服务系统模块</description>
+
+    <properties>
+        <cloud.version>3.0-RELEASE</cloud.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>vip.penint</groupId>
+            <artifactId>common-redis-starter</artifactId>
+            <version>${cloud.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>vip.penint</groupId>
+            <artifactId>common-security-starter</artifactId>
+            <version>${cloud.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.9.4</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

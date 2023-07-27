@@ -1,0 +1,35 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: Cloud-Gateway
+  cloud:
+    nacos:
+      config:
+        namespace: 69b2ffc0-c439-48c6-8f16-96be4b3d85c5
+        server-addr: localhost:8848
+        group: DEFAULT_GROUP
+        prefix: gateway
+        file-extension: yaml
+      discovery:
+        server-addr: localhost:8848
+        namespace: 69b2ffc0-c439-48c6-8f16-96be4b3d85c5
+        ip: localhost
+
+logging:
+  level:
+    org:
+      springframework:
+        boot:
+          actuate:
+            endpoint:
+              EndpointId: error
+        data:
+          convert:
+            CustomConversions: error
+    com:
+      alibaba:
+        cloud:
+          nacos:
+            client:
+              NacosPropertySourceBuilder: error

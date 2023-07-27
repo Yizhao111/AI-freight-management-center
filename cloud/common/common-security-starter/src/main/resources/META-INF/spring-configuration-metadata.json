@@ -1,0 +1,93 @@
+{
+  "groups": [
+    {
+      "name": "penint.doc",
+      "type": "vip.penint.cloud.common.doc.starter.properties.DocProperties",
+      "sourceType": "vip.penint.cloud.common.doc.starter.properties.DocProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "penint.doc.base-package",
+      "type": "java.lang.String",
+      "description": "接口扫描路径，如Controller路径",
+      "sourceType": "vip.penint.cloud.common.doc.starter.properties.DocProperties"
+    },
+    {
+      "name": "penint.doc.description",
+      "type": "java.lang.String",
+      "description": "文档描述",
+      "sourceType": "vip.penint.cloud.common.doc.starter.properties.DocProperties"
+    },
+    {
+      "name": "penint.doc.description-color",
+      "type": "java.lang.String",
+      "description": "文档描述颜色",
+      "sourceType": "vip.penint.cloud.common.doc.starter.properties.DocProperties",
+      "defaultValue": "#42b983"
+    },
+    {
+      "name": "penint.doc.description-font-size",
+      "type": "java.lang.String",
+      "description": "文档描述字体大小",
+      "sourceType": "vip.penint.cloud.common.doc.starter.properties.DocProperties",
+      "defaultValue": "14"
+    },
+    {
+      "name": "penint.doc.email",
+      "type": "java.lang.String",
+      "description": "联系方式：邮箱",
+      "sourceType": "vip.penint.cloud.common.doc.starter.properties.DocProperties"
+    },
+    {
+      "name": "penint.doc.enable",
+      "type": "java.lang.Boolean",
+      "description": "是否开启doc功能",
+      "sourceType": "vip.penint.cloud.common.doc.starter.properties.DocProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "penint.doc.license",
+      "type": "java.lang.String",
+      "description": "协议",
+      "sourceType": "vip.penint.cloud.common.doc.starter.properties.DocProperties"
+    },
+    {
+      "name": "penint.doc.license-url",
+      "type": "java.lang.String",
+      "description": "协议地址",
+      "sourceType": "vip.penint.cloud.common.doc.starter.properties.DocProperties"
+    },
+    {
+      "name": "penint.doc.name",
+      "type": "java.lang.String",
+      "description": "联系方式：姓名",
+      "sourceType": "vip.penint.cloud.common.doc.starter.properties.DocProperties"
+    },
+    {
+      "name": "penint.doc.terms-of-service-url",
+      "type": "java.lang.String",
+      "description": "服务url",
+      "sourceType": "vip.penint.cloud.common.doc.starter.properties.DocProperties"
+    },
+    {
+      "name": "penint.doc.title",
+      "type": "java.lang.String",
+      "description": "文档标题",
+      "sourceType": "vip.penint.cloud.common.doc.starter.properties.DocProperties"
+    },
+    {
+      "name": "penint.doc.url",
+      "type": "java.lang.String",
+      "description": "联系方式：个人网站url",
+      "sourceType": "vip.penint.cloud.common.doc.starter.properties.DocProperties"
+    },
+    {
+      "name": "penint.doc.version",
+      "type": "java.lang.String",
+      "description": "版本",
+      "sourceType": "vip.penint.cloud.common.doc.starter.properties.DocProperties"
+    }
+  ],
+  "hints": []
+}

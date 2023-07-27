@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="vip.penint.cloud.server.ques.mapper.IQuMapper">
+    <resultMap id="BaseResultMap" type="vip.penint.cloud.server.ques.entity.Qu">
+        <!--@mbg.generated-->
+        <!--@Table t_qu-->
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="qu_type" jdbcType="INTEGER" property="quType"/>
+        <result column="level" jdbcType="INTEGER" property="level"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id,
+        qu_type,
+        `level`,
+        content,
+        create_time
+    </sql>
+
+    <select id="quCount" resultType="java.util.Map">
+        SELECT a.type, IFNULL(count(q.id), 0) count
+        FROM (SELECT 1 as type
+            union all
+            SELECT 2 as type
+            union all
+            SELECT 3 as type) a
+            LEFT JOIN t_qu q
+        ON q.qu_type = a.type
+        group by a.type
+    </select>
+
+    <select id="selectListByDay" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM t_qu
+        where date (create_time) = #{day}
+    </select>
+</mapper>

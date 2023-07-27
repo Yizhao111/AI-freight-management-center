@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="vip.penint.cloud.server.busi.mapper.IShopCategoryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="vip.penint.cloud.server.busi.entity.ShopCategory">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="desc" property="desc" />
+        <result column="pid" property="pid" />
+        <result column="icon_url" property="iconUrl" />
+        <result column="pic_url" property="picUrl" />
+        <result column="level" property="level" />
+        <result column="create_time" property="createTime" />
+        <result column="sort" property="sort" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, `desc`, pid, icon_url, pic_url, level, create_time, sort
+    </sql>
+
+    <select id="findCateGoods" resultType="java.util.Map">
+        SELECT category_name,
+               COALESCE(SUM(goods_count), 0) AS total_goods_count
+        FROM (SELECT bsc.name      AS category_name,
+                     COUNT(bsg.id) AS goods_count
+              FROM busi_shop_category bsc
+                       LEFT JOIN busi_shop_goods bsg ON bsc.id = bsg.category_id
+              WHERE bsc.level = 'l2'
+              GROUP BY bsc.id) t
+        GROUP BY category_name
+        ORDER BY total_goods_count DESC LIMIT 3;
+    </select>
+</mapper>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>vip.penint</groupId>
+        <artifactId>cloud</artifactId>
+        <version>3.0-RELEASE</version>
+        <relativePath>../cloud/pom.xml</relativePath>
+    </parent>
+
+    <artifactId>gateway</artifactId>
+    <name>Gateway</name>
+    <description>Gateway服务网关模块</description>
+
+    <properties>
+        <cloud.version>3.0-RELEASE</cloud.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>vip.penint</groupId>
+            <artifactId>common-core</artifactId>
+            <version>${cloud.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-oauth2</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-security</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>vip.penint</groupId>-->
+<!--            <artifactId>common-doc-gateway-starter</artifactId>-->
+<!--            <version>${cloud.version}</version>-->
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>vip.penint</groupId>-->
+<!--            <artifactId>common-logging-starter</artifactId>-->
+<!--            <version>${cloud.version}</version>-->
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.springframework.boot</groupId>-->
+<!--                    <artifactId>spring-boot-starter-web</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-gateway</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <!-- 网关增强依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <!--<plugin>
+                &lt;!&ndash; https://gitee.com/roseboy/classfinal &ndash;&gt;
+                <groupId>net.roseboy</groupId>
+                <artifactId>classfinal-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <configuration>
+                    &lt;!&ndash;  加密打包之后pom.xml会被删除，不用担心在jar包里找到此密码，当为 # 时不加密 &ndash;&gt;
+                    <password>#</password>&lt;!&ndash;加密打包之后pom.xml会被删除，不用担心在jar包里找到此密码&ndash;&gt;
+                    &lt;!&ndash; 加密的包名(可为空,多个用","分割) &ndash;&gt;
+                    <packages>vip.penint.cloud.gateway</packages>
+                    &lt;!&ndash;  配置说明文件，如果没有特殊的打包要求可以注销 cfgfiles 标签  &ndash;&gt;
+                    &lt;!&ndash;                    <cfgfiles>application.yml</cfgfiles>&ndash;&gt;
+                    &lt;!&ndash;  排除的类名(可为空,多个用","分割) &ndash;&gt;
+                    &lt;!&ndash;                    <excludes>org.spring</excludes>&ndash;&gt;
+                    &lt;!&ndash;                    <libjars>a.jar,b.jar</libjars>&ndash;&gt;
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>classFinal</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>-->
+        </plugins>
+
+    </build>
+
+</project>

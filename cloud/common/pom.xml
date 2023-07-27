@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>vip.penint</groupId>
+        <artifactId>cloud</artifactId>
+        <version>3.0-RELEASE</version>
+        <relativePath>../cloud/pom.xml</relativePath>
+    </parent>
+
+    <properties>
+        <cloud.version>3.0-RELEASE</cloud.version>
+    </properties>
+
+    <modules>
+        <module>common-core</module>
+        <module>common-redis-starter</module>
+        <module>common-security-starter</module>
+    </modules>
+
+    <artifactId>common</artifactId>
+    <version>3.0-RELEASE</version>
+    <name>Common</name>
+    <packaging>pom</packaging>
+    <description>Common通用模块</description>
+</project>

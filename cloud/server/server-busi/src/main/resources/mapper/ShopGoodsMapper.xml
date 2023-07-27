@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="vip.penint.cloud.server.busi.mapper.IShopGoodsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="vip.penint.cloud.server.busi.entity.ShopGoods">
+        <id column="id" property="id" />
+        <result column="goods_sn" property="goodsSn" />
+        <result column="name" property="name" />
+        <result column="category_id" property="categoryId" />
+        <result column="brief" property="brief" />
+        <result column="is_on_sale" property="isOnSale" />
+        <result column="unit" property="unit" />
+        <result column="sku" property="sku" />
+        <result column="create_time" property="createTime" />
+        <result column="category_source" property="categorySource" />
+        <result column="price" property="price" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, goods_sn, name, category_id, brief, is_on_sale, unit, sku, create_time, category_source, price
+    </sql>
+
+</mapper>

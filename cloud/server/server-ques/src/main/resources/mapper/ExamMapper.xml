@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="vip.penint.cloud.server.ques.mapper.IExamMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="vip.penint.cloud.server.ques.entity.Exam">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="open_type" property="openType"/>
+        <result column="num" property="num"/>
+        <result column="time_limit" property="timeLimit"/>
+        <result column="start_time" property="startTime"/>
+        <result column="stop_time" property="stopTime"/>
+        <result column="create_time" property="createTime"/>
+        <result column="start_user" property="startUser"/>
+        <result column="com_id" property="comId"/>
+        <result column="del_flag" property="delFlag"/>
+        <result column="status" property="status"/>
+        <result column="theme" property="theme"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        title,
+        content,
+        open_type,
+        num,
+        time_limit,
+        start_time,
+        stop_time,
+        create_time,
+        start_user,
+        com_id,
+        del_flag,
+        status,
+        theme
+    </sql>
+
+    <select id="myList" resultMap="BaseResultMap">
+        SELECT *
+        FROM (SELECT *
+              FROM t_exam
+              where open_type = 1
+                and del_flag = 0
+                and (time_limit = 1
+                  and date (now())  <![CDATA[ >= ]]> start_time
+                and date (now())  <![CDATA[ < ]]> stop_time)
+        and status = 1
+        union all
+        SELECT *
+        FROM t_exam
+        where open_type = 1
+          and del_flag = 0
+          and time_limit = 0
+          and status = 1
+        union all
+        SELECT *
+        FROM t_exam
+        where open_type = 2
+          and del_flag = 0
+          and time_limit = 0
+          and locate(#{userId}, user_id_str) > 0
+          and status = 1
+        union all
+        SELECT *
+        FROM t_exam
+        where open_type = 2
+          and del_flag = 0
+          and (time_limit = 1
+            and date (now())  <![CDATA[ >= ]]> start_time
+          and date (now())  <![CDATA[ < ]]> stop_time)
+          and locate(#{userId}
+            , user_id_str)
+            > 0
+          and status = 1
+            ) a
+        <where>
+            <if test="exam.openType != null">
+                and a.open_type = #{exam.openType,jdbcType=INTEGER}
+            </if>
+            <if test="exam.title != null and exam.title != ''">
+                and a.title like concat('%'
+                  , #{exam.title}
+                  , '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="myAnswer" resultType="vip.penint.cloud.server.ques.entity.vo.MyAnswerVO">
+        SELECT ea.id as answerId, ea.exam_id, e.title, e.open_type, ea.create_time
+        FROM t_exam_answer ea
+                 LEFT JOIN t_exam e ON e.id = ea.exam_id
+        <where>
+            <if test="userId != null">
+                and ea.user_id = #{userId}
+            </if>
+            <if test="exam.openType != null">
+                and a.open_type = #{exam.openType,jdbcType=INTEGER}
+            </if>
+            <if test="exam.title != null and exam.title != ''">
+                and a.title like concat('%'
+                    , #{exam.title}
+                    , '%')
+            </if>
+        </where>
+        ORDER BY ea.create_time desc
+    </select>
+</mapper>

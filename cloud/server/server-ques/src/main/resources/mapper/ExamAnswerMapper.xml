@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="vip.penint.cloud.server.ques.mapper.IExamAnswerMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="vip.penint.cloud.server.ques.entity.ExamAnswer">
+        <id column="id" property="id"/>
+        <result column="exam_id" property="examId"/>
+        <result column="user_id" property="userId"/>
+        <result column="data" property="data"
+                typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        exam_id,
+        user_id,
+        `data`,
+        create_time
+    </sql>
+
+    <select id="examAnswerList" resultType="vip.penint.cloud.server.ques.entity.vo.AnswerListVO">
+        SELECT ea.id as answerId, ea.create_time,ea.user_id
+        FROM t_exam_answer ea
+        where ea.exam_id = #{examId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="allQues" resultType="java.util.Map">
+        SELECT nick_name as nickName, title, DATE_FORMAT(ea.create_time,'%Y-%m-%d %H:%i:%S')  as createTime
+        FROM t_exam_answer ea
+                 LEFT JOIN t_exam e ON e.id = ea.exam_id
+    </select>
+
+    <select id="selectListByDay" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_exam_answer where date(create_time) = #{day}
+    </select>
+</mapper>

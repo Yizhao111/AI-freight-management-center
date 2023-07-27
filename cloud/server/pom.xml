@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>vip.penint</groupId>
+        <artifactId>cloud</artifactId>
+        <version>3.0-RELEASE</version>
+        <relativePath>../cloud/pom.xml</relativePath>
+    </parent>
+
+    <artifactId>server</artifactId>
+    <version>3.0-RELEASE</version>
+    <packaging>pom</packaging>
+    <name>Server</name>
+    <description>Server服务提供模块</description>
+
+    <modules>
+        <module>server-system</module>
+        <module>server-busi</module>
+        <module>server-ques</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>${logstash-logback-encoder.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.83</version>
+        </dependency>
+    </dependencies>
+</project>

@@ -1,0 +1,797 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>库房数据可视化平台</title>
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <script type="text/javascript" src="../js/request.js"></script>
+    <link rel="stylesheet" href="../css/comon0.css">
+
+</head>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var html = $(".wrap ul").html()
+        $(".wrap ul").append(html)
+        var ls = $(".wrap li").length / 2 + 1
+        i = 0
+        ref = setInterval(function () {
+            i++
+            if (i == ls) {
+                i = 1
+                $(".wrap ul").css({ marginTop: 0 })
+                $(".wrap ul").animate({ marginTop: -'.52' * i + 'rem' }, 1000)
+            }
+            $(".wrap ul").animate({ marginTop: -'.52' * i + 'rem' }, 1000)
+
+
+        }, 2400);
+
+
+
+        var html2 = $(".adduser ul").html()
+        $(".adduser ul").append(html2)
+        var ls2 = $(".adduser li").length / 2 + 1
+        a = 0
+        ref = setInterval(function () {
+            a++
+            if (a == ls2) {
+                a = 1
+                $(".adduser ul").css({ marginTop: 0 })
+                $(".adduser ul").animate({ marginTop: -'.5' * a + 'rem' }, 800)
+            }
+            $(".adduser ul").animate({ marginTop: -'.5' * a + 'rem' }, 800)
+
+
+        }, 4300);
+
+
+
+
+
+
+
+
+    })
+</script>
+
+<body>
+    <div class="loading">
+        <div class="loadbox"> <img src="../images/loading.gif"> 页面加载中... </div>
+    </div>
+    <div class="head">
+        <h1>库房数据可视化平台</h1>
+        <!-- <div class="weather"><img src="images/weather.png"><span>多云转小雨</span><span>2021-06-06</span></div> -->
+    </div>
+    <div class="mainbox">
+        <ul class="clearfix">
+            <li>
+                <div class="boxall" style="height: 2.7rem">
+                    <div class="alltitle">数据统计</div>
+
+                    <div class="sycm">
+                        <ul class="clearfix">
+                            <li>
+                                <h2 id="d1">1824</h2><span>车辆数</span>
+                            </li>
+                            <li>
+                                <h2 id="d2">1920</h2><span>客户数</span>
+                            </li>
+
+                        </ul>
+                        <div style="border-bottom: 1px solid rgba(255,255,255,.1)"></div>
+                        <ul class="clearfix">
+                            <li>
+                                <h2 id="d4">9301</h2><span>商品数</span>
+                            </li>
+                            <li>
+                                <h2 id="d5">8873</h2><span>订单数</span>
+                            </li>
+
+                        </ul>
+
+
+                    </div>
+                    <div class="boxfoot"></div>
+                </div>
+                <div class="boxall" style="height: 2.65rem">
+                    <div class="alltitle">热门类目占比</div>
+                    <div class="sy" id="echarts1"></div>
+                    <div class="sy" id="echarts2"></div>
+                    <div class="sy" id="echarts3"></div>
+                    <div class="boxfoot"></div>
+                </div>
+                <div class="boxall" style="height: 2.95rem">
+                    <div class="alltitle">近十天订货记录</div>
+                    <div id="echarts4" style="height: 2.8rem; width: 100%;"></div>
+                    <div class="boxfoot"></div>
+                </div>
+            </li>
+            <li>
+                <!-- <div class="bar">
+                    <div class="barbox">
+                        <ul class="clearfix">
+                            <li class="pulll_left counter">12581189</li>
+                            <li class="pulll_left counter">3912410</li>
+                        </ul>
+                    </div>
+                    <div class="barbox2">
+                        <ul class="clearfix">
+                            <li class="pulll_left">消费总金额</li>
+                            <li class="pulll_left">消费总笔数</li>
+                        </ul>
+                    </div>
+                </div> -->
+                <div class="map">
+                    <div class="map1"><img src="../images/lbx.png"></div>
+                    <div class="map2"><img src="../images/jt.png"></div>
+                    <div class="map3"><img src="../images/map.png"></div>
+                    <div class="map4" id="map_1"></div>
+                </div>
+            </li>
+            <li>
+                <div class="boxall" style="height:5.2rem">
+                    <div class="alltitle">实时商品信息</div>
+                    <!-- <div class="tabs">
+                        <ul class="clearfix">
+                            <li><a class="active" href="#">7天</a></li>
+                            <li><a href="#">15天</a></li>
+                            <li><a href="#">30天</a></li>
+                        </ul>
+                    </div>
+                    <div class="clearfix">
+                        <div class="sy" id="echarts6"></div>
+                        <div class="sy" id="echarts7"></div>
+                        <div class="sy" id="echarts8"></div>
+                    </div> -->
+                    <div class="adduser">
+                        <ul class="clearfix" id="company">
+                        </ul>
+                    </div>
+                    <!-- <div class="addnew">
+                        <div class="tit02"><span>实时租户信息</span></div>
+                        <div class="adduser">
+                            <ul class="clearfix" id="company">
+                            </ul>
+                        </div>
+                    </div> -->
+                    <!-- <div class="addnew">
+                        <div class="tit02"><span>实时租户信息</span></div>
+                        <div class="adduser">
+                            <ul class="clearfix" id="company">
+                                <li class="clearfix"> <span class="pulll_left"><img
+                                            src="images/head.jpg">1：今日新增会员列表</span> <span class="pulll_right">21岁 - 男 -
+                                        西安 </span> </li>
+                                <li class="clearfix"> <span class="pulll_left"><img
+                                            src="images/head.jpg">2：今日新增会员列表</span> <span class="pulll_right">22岁 - 女 -
+                                        成都 </span> </li>
+                                <li class="clearfix"> <span class="pulll_left"><img
+                                            src="images/head.jpg">3：今日新增会员列表</span> <span class="pulll_right">23岁 - 男 -
+                                        广州 </span> </li>
+                                <li class="clearfix"> <span class="pulll_left"><img
+                                            src="images/head.jpg">4：今日新增会员列表</span> <span class="pulll_right">24岁 - 女 -
+                                        北京 </span> </li>
+                            </ul>
+                        </div>
+                    </div> -->
+                    <div class="boxfoot"></div>
+                </div>
+                <div class="boxall" style="height: 3.4rem">
+                    <div class="alltitle">实时订单记录</div>
+                    <div class="wrap">
+                        <ul id="ques">
+                            <!-- <li>
+                                <p>1：凯文童鞋 - 支付宝支付 - 120元 - XXX门店</p>
+                            </li>
+                            <li>
+                                <p>2：李云龙 - 支付宝支付 - 120元 - XXX门店</p>
+                            </li>
+                            <li>
+                                <p>3：岳云鹏 - 支付宝支付 - 120元 - XXX门店</p>
+                            </li>
+                            <li>
+                                <p>4：刘亦菲 - 支付宝支付 - 120元 - XXX门店</p>
+                            </li>
+                            <li>
+                                <p>5：周杰伦 - 支付宝支付 - 120元 - XXX门店</p>
+                            </li>
+                            <li>
+                                <p>6：刘德华 - 支付宝支付 - 120元 - XXX门店</p>
+                            </li>
+                            <li>
+                                <p>7：刘德华 - 支付宝支付 - 120元 - XXX门店</p>
+                            </li>
+                            <li>
+                                <p>8：刘德华 - 支付宝支付 - 120元 - XXX门店</p>
+                            </li> -->
+                        </ul>
+                    </div>
+                    <div class="boxfoot"></div>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+    <div class="back"></div>
+    <script language="JavaScript" src="../js/js.js"></script>
+    <script type="text/javascript" src="../js/echarts.min.js"></script>
+    <script type="text/javascript" src="../js/china.js"></script>
+    <script type="text/javascript" src="../js/area_echarts.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // myChart1.resize();
+            myChart2.resize();
+            myChart3.resize();
+            myChart6.resize();
+            myChart7.resize();
+            myChart8.resize();
+        })
+        window.addEventListener("resize", function () {
+            myChart1.resize();
+            myChart2.resize();
+            myChart3.resize();
+            myChart6.resize();
+            myChart7.resize();
+            myChart8.resize();
+        });
+    </script>
+    <script type="text/javascript">
+        var v0 = 1000;
+        var v1 = 353;
+        var v2 = 178;
+        var v3 = 68;
+
+
+
+        var myChart6 = echarts.init(document.getElementById('echarts6'));
+        option6 = {
+            series: [{
+                type: 'pie',
+                radius: ['70%', '80%'],
+                color: '#0088cc',
+                label: {
+                    normal: {
+                        position: 'center'
+                    }
+                },
+                data: [{
+                    value: v1,
+                    name: '新增会员',
+                    label: {
+                        normal: {
+                            formatter: v1 + '',
+                            textStyle: {
+                                fontSize: 20,
+                                color: '#fff',
+                            }
+                        }
+                    }
+                },
+                {
+                    value: v0,
+                    name: '老会员',
+                    label: {
+                        normal: {
+                            formatter: function (params) {
+                                return '占比' + Math.round(v1 / v0 * 100) + '%'
+                            },
+                            textStyle: {
+                                color: '#aaa',
+                                fontSize: 12
+                            }
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: 'rgba(255,255,255,.2)'
+                        },
+                        emphasis: {
+                            color: '#fff'
+                        }
+                    },
+                }]
+            }]
+
+        };
+
+        var myChart7 = echarts.init(document.getElementById('echarts7'));
+        option7 = {
+            series: [{
+                type: 'pie',
+                radius: ['70%', '80%'],
+                color: '#fccb00',
+                label: {
+                    normal: {
+                        position: 'center'
+                    }
+                },
+                data: [{
+                    value: v2,
+                    name: '新增领卡会员',
+                    label: {
+                        normal: {
+                            formatter: v2 + '',
+                            textStyle: {
+                                fontSize: 20,
+                                color: '#fff',
+                            }
+                        }
+                    }
+                },
+                {
+                    value: v0,
+                    name: '总领卡会员',
+                    label: {
+                        normal: {
+                            formatter: function (params) {
+                                return '占比' + Math.round(v2 / v0 * 100) + '%'
+                            },
+                            textStyle: {
+                                color: '#aaa',
+                                fontSize: 12
+                            }
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: 'rgba(255,255,255,.2)'
+                        },
+                        emphasis: {
+                            color: '#fff'
+                        }
+                    },
+                }]
+            }]
+        };
+
+
+        var myChart8 = echarts.init(document.getElementById('echarts8'));
+        option8 = {
+
+
+            series: [{
+
+                type: 'pie',
+                radius: ['70%', '80%'],
+                color: '#62b62f',
+                label: {
+                    normal: {
+                        position: 'center'
+                    }
+                },
+                data: [{
+                    value: v3,
+                    name: '女性客户',
+                    label: {
+                        normal: {
+                            formatter: v3 + '',
+                            textStyle: {
+                                fontSize: 20,
+                                color: '#fff',
+                            }
+                        }
+                    }
+                }, {
+                    value: v0,
+                    name: '男性客户',
+                    label: {
+                        normal: {
+                            formatter: function (params) {
+                                return '占比' + Math.round(v2 / v0 * 100) + '%'
+                            },
+                            textStyle: {
+                                color: '#aaa',
+                                fontSize: 12
+                            }
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: 'rgba(255,255,255,.2)'
+                        },
+                        emphasis: {
+                            color: '#fff'
+                        }
+                    },
+                }]
+            }]
+        };
+        setTimeout(function () {
+            myChart6.setOption(option6);
+            myChart7.setOption(option7);
+            myChart8.setOption(option8);
+        }, 500);
+
+    </script>
+    <script type="text/javascript">
+
+        $.ajax({
+            type: 'GET',			//以post方法提交数据给服务器
+            url: BASE_URL + "/busi/stat/leftChat1",				//提交数据到User
+            dataType: "json",		//数据类型
+            success: function (res) {			//回调函数
+                var data = res.data
+                var all = data[0].total_goods_count + data[1].total_goods_count + data[2].total_goods_count;
+                var myChart1 = echarts.init(document.getElementById('echarts1'));
+                var v1 = data[0].total_goods_count;
+                var v2 = data[1].total_goods_count;
+                var v3 = data[2].total_goods_count;
+                option1 = {
+
+                    series: [{
+                        type: 'pie',
+                        radius: ['70%', '80%'],
+                        color: '#0088cc',
+                        label: {
+                            normal: {
+                                position: 'center'
+                            }
+                        },
+                        data: [{
+                            value: all,
+                            name: '单选题',
+                            label: {
+                                normal: {
+                                    formatter: v1 + '',
+                                    textStyle: {
+                                        fontSize: 20,
+                                        color: '#fff',
+                                    }
+                                }
+                            }
+                        }, {
+                            value: v1,
+                            name: '单选题',
+                            label: {
+                                normal: {
+                                    formatter: function (params) {
+                                        return data[0].category_name + '占比' + Math.round(v1 / all * 100) + '%'
+                                    },
+                                    textStyle: {
+                                        color: '#aaa',
+                                        fontSize: 12
+                                    }
+                                }
+                            },
+                            itemStyle: {
+                                normal: {
+                                    color: 'rgba(255,255,255,.2)'
+                                },
+                                emphasis: {
+                                    color: '#fff'
+                                }
+                            },
+                        }]
+                    }]
+                };
+
+                var myChart3 = echarts.init(document.getElementById('echarts3'));
+                option2 = {
+                    series: [{
+                        type: 'pie',
+                        radius: ['70%', '80%'],
+                        color: '#fccb00',
+                        label: {
+                            normal: {
+                                position: 'center'
+                            }
+                        },
+                        data: [{
+                            value: v2,
+                            name: '判断题',
+                            label: {
+                                normal: {
+                                    formatter: v2 + '',
+                                    textStyle: {
+                                        fontSize: 20,
+                                        color: '#fff',
+                                    }
+                                }
+                            }
+                        }, {
+                            value: all,
+                            name: '判断题',
+                            label: {
+                                normal: {
+                                    formatter: function (params) {
+                                        return data[1].category_name + '占比' + Math.round(v2 / all * 100) + '%'
+                                    },
+                                    textStyle: {
+                                        color: '#aaa',
+                                        fontSize: 12
+                                    }
+                                }
+                            },
+                            itemStyle: {
+                                normal: {
+                                    color: 'rgba(255,255,255,.2)'
+                                },
+                                emphasis: {
+                                    color: '#fff'
+                                }
+                            },
+                        }]
+                    }]
+                };
+
+
+                var myChart2 = echarts.init(document.getElementById('echarts2'));
+                option3 = {
+                    series: [{
+
+                        type: 'pie',
+                        radius: ['70%', '80%'],
+                        color: '#62b62f',
+                        label: {
+                            normal: {
+                                position: 'center'
+                            }
+                        },
+                        data: [{
+                            value: v3,
+                            name: '多选题',
+                            label: {
+                                normal: {
+                                    formatter: v3 + '',
+                                    textStyle: {
+                                        fontSize: 20,
+                                        color: '#fff',
+                                    }
+                                }
+                            }
+                        }, {
+                            value: all,
+                            name: '多选题',
+                            label: {
+                                normal: {
+                                    formatter: function (params) {
+                                        return data[2].category_name + '占比' + Math.round(v3 / all * 100) + '%'
+                                    },
+                                    textStyle: {
+                                        color: '#aaa',
+                                        fontSize: 12
+                                    }
+                                }
+                            },
+                            itemStyle: {
+                                normal: {
+                                    color: 'rgba(255,255,255,.2)'
+                                },
+                                emphasis: {
+                                    color: '#fff'
+                                }
+                            },
+                        }]
+                    }]
+                };
+                setTimeout(function () {
+                    myChart1.setOption(option1);
+                    myChart2.setOption(option2);
+                    myChart3.setOption(option3);
+                }, 500);
+
+            }
+        });
+
+    </script>
+    <script type="text/javascript">
+        function parseTime(time, pattern) {
+            if (arguments.length === 0 || !time) {
+                return null
+            }
+            const format = pattern || '{y}-{m}-{d} {h}:{i}:{s}'
+            let date
+            if (typeof time === 'object') {
+                date = time
+            } else {
+                if ((typeof time === 'string') && (/^[0-9]+$/.test(time))) {
+                    time = parseInt(time)
+                }
+                if ((typeof time === 'number') && (time.toString().length === 10)) {
+                    time = time * 1000
+                }
+                date = new Date(time)
+            }
+            const formatObj = {
+                y: date.getFullYear(),
+                m: date.getMonth() + 1,
+                d: date.getDate(),
+                h: date.getHours(),
+                i: date.getMinutes(),
+                s: date.getSeconds(),
+                a: date.getDay()
+            }
+            const time_str = format.replace(/{(y|m|d|h|i|s|a)+}/g, (result, key) => {
+                let value = formatObj[key]
+                // Note: getDay() returns 0 on Sunday
+                if (key === 'a') { return ['日', '一', '二', '三', '四', '五', '六'][value] }
+                if (result.length > 0 && value < 10) {
+                    value = '0' + value
+                }
+                return value || 0
+            })
+            return time_str
+        }
+
+        var myChart = echarts.init(document.getElementById('echarts4'));
+        $.ajax({
+            type: 'GET',			//以post方法提交数据给服务器
+            url: BASE_URL + "/busi/stat/leftChat2",				//提交数据到User
+            dataType: "json",		//数据类型
+            success: function (res) {			//回调函数
+                var data = res.data
+                var str = ''
+
+                const tenVisitCount = [];
+                const dateArr = [];
+                for (let i = 10; i >= 0; i--) {
+                    const time = parseTime(
+                        new Date(new Date().getTime() - 24 * 60 * 60 * 1000 * i),
+                        "{m}-{d}"
+                    );
+                    let contain = false;
+                    for (const o of data) {
+                        if (o.days === time) {
+                            contain = true;
+                            tenVisitCount.push(o.count);
+                        }
+                    }
+                    if (!contain) {
+                        tenVisitCount.push(0);
+                    }
+                    dateArr.push(time);
+                }
+                const tenUserVisitCount = [];
+                for (let i = 10; i >= 0; i--) {
+                    const time = parseTime(
+                        new Date(new Date().getTime() - 24 * 60 * 60 * 1000 * i),
+                        "{m}-{d}"
+                    );
+                    let contain = false;
+                    for (const o of data) {
+                        if (o.days === time) {
+                            contain = true;
+                            tenUserVisitCount.push(o.count);
+                        }
+                    }
+                    if (!contain) {
+                        tenUserVisitCount.push(0);
+                    }
+                }
+
+
+                option = {
+                    // backgroundColor: "#FFF",
+                    title: {
+                        // text: "近十天系统访问记录" + "\n",
+                        textStyle: {
+                            fontSize: 14,
+                            color: '#fff'
+                        }
+                    },
+                    tooltip: {
+                        trigger: "axis",
+                        axisPointer: {
+                            type: "shadow"
+                        }
+                    },
+                    legend: {
+                        data: ["总数"],
+                        top: "10",
+                        textStyle: {
+                            fontSize: 14,//字体大小
+                            color: '#ffffff'//字体颜色
+                        }
+                    },
+                    grid: {
+
+                    },
+                    toolbox: {
+                        feature: {
+                            dataView: { show: false, readOnly: false }
+                        }
+                    },
+                    xAxis: {
+                        type: "category",
+                        boundaryGap: true,
+                        splitLine: {
+                            show: false
+                        },
+                        data: dateArr,
+                        axisLine: {
+                            lineStyle: {
+                                color: "#fff"
+                            }
+                        }
+                    },
+                    yAxis: [
+                        {
+                            type: "value",
+                            splitLine: {
+                                show: false,
+                                lineStyle: {
+                                    type: "dashed",
+                                    color: "#f3f3f3"
+                                }
+                            },
+                            //  改变y轴字体颜色和大小  
+                            axisLabel: {
+                                textStyle: {
+                                    color: '#fff',
+                                },
+                            },
+                            axisLine: {
+                                show: false,
+                                lineStyle: {
+                                    color: "#333"
+                                }
+                            },
+                            nameTextStyle: {
+                                color: "#999"
+                            },
+                            splitArea: {
+                                show: false
+                            }
+                        }
+                    ],
+                    series: [
+                        {
+                            name: "总数",
+                            smooth: true,
+                            type: "line",
+                            color: "rgba(7, 41, 178, 1)",
+                            areaStyle: {
+                                color: {
+                                    type: "linear",
+                                    x: 0,
+                                    y: 0,
+                                    x2: 0,
+                                    y2: 1,
+                                    colorStops: [
+                                        {
+                                            offset: 0,
+                                            color: "rgba(7, 41, 178, 0.8)"
+                                        },
+                                        {
+                                            offset: 1,
+                                            color: "#fff"
+                                        }
+                                    ],
+                                    globalCoord: false
+                                }
+                            },
+                            lineStyle: {
+                                normal: {
+                                    width: 3
+                                }
+                            },
+                            data: tenVisitCount
+                        }
+                    ]
+                }
+                myChart.setOption(option);
+                setTimeout(function () {
+                    myChart.resize();
+                    window.addEventListener("resize", function () {
+                        myChart.resize();
+                    });
+                }, 500);
+                // $(document).ready(function () {
+                //     myChart.resize();
+
+                // })
+
+            }
+        });
+        // myChart.setOption(option);
+
+    </script>
+    <script type="text/javascript" src="../js/jquery.waypoints.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.countup.min.js"></script>
+    <script type="text/javascript">
+        $('.counter').countUp();
+    </script>
+
+</body>
+
+</html>

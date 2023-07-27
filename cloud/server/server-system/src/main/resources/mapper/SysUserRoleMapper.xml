@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="vip.penint.cloud.server.system.mapper.SysUserRoleMapper">
+    <resultMap id="BaseResultMap" type="vip.penint.cloud.common.core.entity.system.SysUserRole">
+        <!--@mbg.generated-->
+        <!--@Table sys_user_role-->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="role_id" jdbcType="INTEGER" property="roleId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, user_id, role_id
+    </sql>
+    <insert id="insertByRoleList">
+        <!--@mbg.generated-->
+        insert into sys_user_role(user_id,role_id)values
+        <foreach collection="roleIds" item="item" index="index" separator=",">
+            (
+            #{userId,jdbcType=INTEGER},
+            #{item.value}
+            )
+        </foreach>
+    </insert>
+    <select id="findUserIdsByMenuId" resultType="java.lang.Long">
+        SELECT
+        user_id
+        FROM
+        sys_user_role
+        WHERE
+        role_id IN ( SELECT rm.role_id FROM sys_role_menu rm WHERE rm.menu_id = #{menuId} )
+    </select>
+    <delete id="deleteUserRoleByUserId">
+        delete from sys_user_role where user_id=#{userId}
+    </delete>
+    <insert id="batchUserRole">
+        insert into sys_user_role(user_id, role_id) values
+        <foreach item="item" index="index" collection="list" separator=",">
+            (#{item.userId},#{item.roleId})
+        </foreach>
+    </insert>
+</mapper>

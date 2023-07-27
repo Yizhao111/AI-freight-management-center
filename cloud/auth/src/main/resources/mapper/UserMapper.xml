@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="vip.penint.cloud.auth.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="vip.penint.cloud.common.core.entity.system.SysUser">
+        <!--@mbg.generated-->
+        <!--@Table sys_user-->
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="ssex" jdbcType="INTEGER" property="ssex"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="roleId" jdbcType="VARCHAR" property="roleId"/>
+        <result column="roleName" jdbcType="VARCHAR" property="roleName"/>
+        <collection property="roles" ofType="vip.penint.cloud.common.core.entity.system.SysRole"
+                    column="roleId" javaType="ArrayList" select="getRoleByRoleId">
+            <result column="roleId" property="roleId"/>
+            <result column="roleName" property="roleName"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="roleMap" type="vip.penint.cloud.common.core.entity.system.SysRole">
+        <!--@mbg.generated-->
+        <!--@Table sys_role-->
+        <id column="role_id" jdbcType="INTEGER" property="roleId"/>
+        <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        r.role_id, r.role_name
+    </sql>
+
+    <select id="findByName" parameterType="string" resultMap="BaseResultMap">
+        SELECT u.user_id,
+        u.nick_name,
+        u.username,
+        u.email,
+        u.mobile,
+        u.password,
+        u.status,
+        u.create_time             createTime,
+        u.ssex,
+        u.last_login_time         lastLoginTime,
+        u.modify_time             modifyTime,
+        u.description,
+        u.avatar,
+        GROUP_CONCAT(r.role_id)   roleId,
+        GROUP_CONCAT(r.ROLE_NAME) roleName
+        FROM sys_user u
+        LEFT JOIN sys_user_role ur ON (u.user_id = ur.user_id)
+        LEFT JOIN sys_role r ON r.role_id = ur.role_id
+        WHERE u.username = #{username,jdbcType=VARCHAR}
+        group by u.username, u.user_id, u.email, u.mobile, u.password, u.status, u.create_time, u.ssex
+        , u.last_login_time, u.modify_time, u.description, u.avatar
+    </select>
+
+
+    <select id="getRoleByRoleId" parameterType="java.lang.Integer" resultMap="roleMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sys_role r
+        WHERE r.role_id = #{role_ID}
+    </select>
+</mapper>
